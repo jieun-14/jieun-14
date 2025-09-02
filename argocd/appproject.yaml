@@ -1,0 +1,403 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: backend
+  namespace: cicd-tools
+spec:
+  description: "svc-dev cluster, ns-devops 전용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: ns-devops
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: front
+  namespace: cicd-tools
+spec:
+  description: "svc-dev cluster, ns-front 전용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: ns-front
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: coreplatform
+  namespace: cicd-tools
+spec:
+  description: "svc-dev cluster, ns-coreplatform 전용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: ns-coreplatform
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: container
+  namespace: ns-container
+spec:
+  description: "svc-dev cluster, ns-container 전용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: ns-container
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+    - namespace: capi-system
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+    - namespace: capo-system
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+    - namespace: capi-kubeadm-bootstrap-system
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+    - namespace: cert-manager
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+    - namespace: capi-kubeadm-control-plane-system
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: Role
+    - group: '*'
+      kind: RoleBinding
+    - group: '*'
+      kind: ClusterRoleBinding
+    - group: '*'
+      kind: ClusterRole
+    - group: '*'
+      kind: CustomResourceDefinition
+    - group: '*'
+      kind: ValidatingWebhookConfiguration
+    - group: '*'
+      kind: MutatingWebhookConfiguration
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: aiplatform
+  namespace: cicd-tools
+spec:
+  description: "svc-dev cluster, ns-aiplatform 전용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: ns-aiplatform
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: foundation-stack
+  namespace: cicd-tools
+spec:
+  description: "pl-dev cluster"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: '*'
+      server: '*'  
+      name: '*'  # 클러스터 별칭
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: openstack-cicd
+  namespace: cicd-tools
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - name: '*'
+      namespace: '*'
+      server: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  sourceRepos:
+    - '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cas
+  namespace: cicd-tools
+spec:
+  description: "svc-dev cluster, ns-cas 전용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: '*'
+      server: '*'
+      name: '*'  
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+      
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: dbaas
+  namespace: cicd-tools
+spec:
+  description: "svc-dev cluster, ns-dbaas 전용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: ns-dbaas
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"  # 클러스터 별칭
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: openstack-pl-cicd
+  namespace: cicd-tools
+spec:
+  description: "pl-cicd cluster, openstack 배포용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: '*'
+      server: "https://kubernetes.default.svc"  # in-cluster
+      name: "in-cluster"  # 클러스터 별칭
+    - namespace: openstack
+      server: "https://kdvmd-pl-cicd-k8scotrl01:6443"  # pl-cicd01 클러스터
+      name: "pl-cicd"  # 클러스터 별칭
+    - namespace: rabbitmq-system
+      server: "https://kdvmd-pl-cicd-k8scotrl01:6443"  # pl-cicd01 클러스터
+      name: "pl-cicd"  # 클러스터 별칭
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: openstack-pl-cicd02
+  namespace: cicd-tools
+spec:
+  description: "pl-cicd02 cluster, openstack 배포용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: cicd-tools
+      server: "https://kubernetes.default.svc"  # in-cluster
+      name: "in-cluster"  # 클러스터 별칭
+    - namespace: openstack
+      server: "https://kdvmd-pl-cicd02-k8scotrl01:6443"  # pl-cicd02 클러스터
+      name: "pl-cicd02"  # 클러스터 별칭
+    - namespace: rabbitmq-system
+      server: "https://kdvmd-pl-cicd02-k8scotrl01:6443"  # pl-cicd02 클러스터
+      name: "pl-cicd02"  # 클러스터 별칭
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  clusterResourceBlacklist: []
+  namespaceResourceBlacklist: []
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: openstack-pl-dev2
+  namespace: cicd-tools
+spec:
+  description: "pl-dev2 cluster, openstack 배포용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: cicd-tools
+      server: "https://kubernetes.default.svc"  # in-cluster
+      name: "in-cluster"  # 클러스터 별칭
+    - namespace: openstack
+      server: "https://kube-api-dev2.ktcloudinfra.com:26445"  # pl-dev2 클러스터
+      name: "pl-dev2"  # 클러스터 별칭
+    - namespace: rabbitmq-system
+      server: "https://kube-api-dev2.ktcloudinfra.com:26445"  # pl-dev2 클러스터
+      name: "pl-dev2"  # 클러스터 별칭
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  clusterResourceBlacklist: []
+  namespaceResourceBlacklist: []
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: base
+  namespace: cicd-tools
+spec:
+  description: "base repo"
+  sourceRepos:
+    - https://github.com/kt-cloud-stack/ktc-base.git
+  destinations:
+    - name: '*'
+      namespace: '*'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: base-pl-cicd1
+  namespace: cicd-tools
+spec:
+  description: "base pl-cicd1 repo"
+  sourceRepos:
+    - https://github.com/kt-cloud-stack/ktc-base.git
+  destinations:
+    - name: '*'
+      namespace: '*'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: base-pl-cicd2
+  namespace: cicd-tools
+spec:
+  description: "base pl-cicd2 repo"
+  sourceRepos:
+    - https://github.com/kt-cloud-stack/ktc-base.git
+  destinations:
+    - name: '*'
+      namespace: '*'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: base-pl-dev2                # pl-dev2
+  namespace: cicd-tools
+spec:
+  description: "base pl-dev2 repo"
+  sourceRepos:
+    - https://github.com/kt-cloud-stack/ktc-base.git
+  destinations:
+    - name: '*'
+      namespace: '*'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: base-pl-gh01             # pl-gh01
+  namespace: cicd-tools
+spec:
+  description: "base pl-gh01 repo"
+  sourceRepos:
+    - https://github.com/kt-cloud-stack/ktc-base.git
+  destinations:
+    - name: '*'
+      namespace: '*'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: base-pl-cicd2-test
+  namespace: pl-cicd2
+spec:
+  description: "base pl-cicd2 test repo"
+  sourceRepos:
+    - https://github.com/kt-cloud-stack/ktc-base.git
+  destinations:
+    - name: '*'
+      namespace: '*'
+      server: '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: virtualnw
+  namespace: cicd-tools
+spec:
+  description: "svc-dev cluster, virtualNW 팀 전용"
+  sourceRepos:
+    - '*'
+  destinations:
+    - namespace: nfv-dev
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"
+    - namespace: ns-devops
+      server: "https://kube-api-server.svcdev.next:6443"  # svc-dev 클러스터
+      name: "svc-dev"
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'

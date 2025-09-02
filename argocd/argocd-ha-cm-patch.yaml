@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: cicd-tools
+data:
+  redis.ha.enabled: "true"
+  redis.sentinel.enabled: "true"
+  redis.sentinel.replicas: "3"
+  redis.password: "K2JQk-PIQLlpJraA"
+
+  # PostgreSQL HA 적용
+  postgresql.replication.enabled: "true"
+  postgresql.replication.replicaCount: "2"
+
+  # Dex HA (선택)
+  dex.replicas: "2"
+

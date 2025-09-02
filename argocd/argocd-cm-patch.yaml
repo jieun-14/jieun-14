@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+data:
+  kustomize.buildOptions: --enable-helm
+  dex.config: |
+    connectors:
+      - type: github
+        id: github-next
+        name: Github-next
+        config:
+          clientID: Ov23liApBUfbv0vS1yoR
+          clientSecret: eb267072072f55e07aac07152a039973fda91
+          orgs:
+            - name: kt-cloud-next
+      - type: github
+        id: github-stack
+        name: Github-stack
+        config:
+          clientID: Ov23liBaDZmxPnSm7iL
+          clientSecret: Odc2f8134046410852bc63e74578d0876027
+          orgs:
+            - name: kt-cloud-stack
+  url: https://argocd-md-dev.ktcloud.com

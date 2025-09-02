@@ -1,0 +1,147 @@
+# argocd-rbac-cm-patch.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+data:
+  policy.csv: |
+
+    ## Github Teams to Argocd groups role
+    g, kt-cloud-stack:admin, role:admin
+    g, kt-cloud-stack:maintainer, role:maintainer
+    g, kt-cloud-next:admin, role:admin
+    g, kt-cloud-next:platform-development, role:svc-dev-backend
+    g, kt-cloud-next:ui-ux, role:svc-dev-front
+    g, kt-cloud-next:core-platform, role:svc-dev-core
+    g, kt-cloud-next:cloud-analytics, role:svc-dev-cas
+    g, kt-cloud-next:container-development, role:svc-dev-container
+    g, kt-cloud-next:data-service, role:svc-dev-dbaas
+    g, kt-cloud-next:ai-platform, role:svc-dev-ai
+    g, kt-cloud-next:VirtualNW, role:svc-dev-virtualnw
+    g, kt-cloud-next:sre-development, role:svc-dev-sredev
+
+    ## Argocd group role - admin
+    p, role:admin, *, *, *, allow
+    
+
+    ## Argocd group role - ns-dbaas maintainer
+    p, role:svc-dev-dbaas, clusters, get, *, allow
+    p, role:svc-dev-dbaas, repositories, *, *, allow
+    p, role:svc-dev-dbaas, projects, get, *, allow
+    p, role:svc-dev-dbaas, gpgkeys, *, *, allow
+    p, role:svc-dev-dbaas, certificates, *, *, allow
+    p, role:svc-dev-dbaas, extensions, *, *, allow
+    p, role:svc-dev-dbaas, logs, *, dbaas/*, allow
+    p, role:svc-dev-dbaas, exec, *, dbaas/*, allow
+    p, role:svc-dev-dbaas, applications, *, dbaas/*, allow
+    p, role:svc-dev-dbaas, applicationsets, *, dbaas/*, allow
+
+    ## Argocd group role - ns-container maintainer
+    p, role:svc-dev-container, clusters, get, *, allow
+    p, role:svc-dev-container, repositories, *, *, allow
+    p, role:svc-dev-container, projects, get, *, allow
+    p, role:svc-dev-container, gpgkeys, *, *, allow
+    p, role:svc-dev-container, certificates, *, *, allow
+    p, role:svc-dev-container, extensions, *, *, allow
+    p, role:svc-dev-container, logs, *, container/*, allow
+    p, role:svc-dev-container, exec, *, container/*, allow
+    p, role:svc-dev-container, applications, *, container/*, allow
+    p, role:svc-dev-container, applicationsets, *, container/*, allow
+    
+    ## Argocd group role - maintainer
+    p, role:maintainer, clusters, get, *, allow
+    p, role:maintainer, repositories, *, *, allow
+    p, role:maintainer, projects, *, *, allow
+    p, role:maintainer, gpgkeys, *, *, allow
+    p, role:maintainer, certificates, *, *, allow
+    p, role:maintainer, extensions, *, *, allow
+    p, role:maintainer, logs, *, *, allow
+    p, role:maintainer, exec, *, *, allow
+    p, role:maintainer, applications, *, *, allow
+    p, role:maintainer, applicationsets, *, *, allow
+
+
+    ## Argocd group role - ns-devops maintainer
+    p, role:svc-dev-backend, clusters, get, *, allow
+    p, role:svc-dev-backend, repositories, *, *, allow
+    p, role:svc-dev-backend, projects, get, *, allow
+    p, role:svc-dev-backend, gpgkeys, *, *, allow
+    p, role:svc-dev-backend, certificates, *, *, allow
+    p, role:svc-dev-backend, extensions, *, *, allow
+    p, role:svc-dev-backend, logs, *, backend/*, allow
+    p, role:svc-dev-backend, exec, *, backend/*, allow
+    p, role:svc-dev-backend, applications, *, backend/*, allow
+    p, role:svc-dev-backend, applicationsets, *, backend/*, allow
+
+    ## Argocd group role - ns-front maintainer
+    p, role:svc-dev-front, clusters, get, *, allow
+    p, role:svc-dev-front, repositories, *, *, allow
+    p, role:svc-dev-front, projects, get, *, allow
+    p, role:svc-dev-front, gpgkeys, *, *, allow
+    p, role:svc-dev-front, certificates, *, *, allow
+    p, role:svc-dev-front, extensions, *, *, allow
+    p, role:svc-dev-front, logs, *, front/*, allow
+    p, role:svc-dev-front, exec, *, front/*, allow
+    p, role:svc-dev-front, applications, *, front/*, allow
+    p, role:svc-dev-front, applicationsets, *, front/*, allow
+
+    ## Argocd group role - ns-coreplatform maintainer
+    p, role:svc-dev-core, clusters, get, *, allow
+    p, role:svc-dev-core, repositories, *, *, allow
+    p, role:svc-dev-core, projects, get, *, allow
+    p, role:svc-dev-core, gpgkeys, *, *, allow
+    p, role:svc-dev-core, certificates, *, *, allow
+    p, role:svc-dev-core, extensions, *, *, allow
+    p, role:svc-dev-core, logs, *, coreplatform/*, allow
+    p, role:svc-dev-core, exec, *, coreplatform/*, allow
+    p, role:svc-dev-core, applications, *, coreplatform/*, allow
+    p, role:svc-dev-core, applicationsets, *, coreplatform/*, allow
+
+    ## Argocd group role - ns-cas maintainer
+    p, role:svc-dev-cas, clusters, get, *, allow
+    p, role:svc-dev-cas, repositories, *, *, allow
+    p, role:svc-dev-cas, projects, get, *, allow
+    p, role:svc-dev-cas, gpgkeys, *, *, allow
+    p, role:svc-dev-cas, certificates, *, *, allow
+    p, role:svc-dev-cas, extensions, *, *, allow
+    p, role:svc-dev-cas, logs, *, cas/*, allow
+    p, role:svc-dev-cas, exec, *, cas/*, allow
+    p, role:svc-dev-cas, applications, *, cas/*, allow
+    p, role:svc-dev-cas, applicationsets, *, cas/*, allow
+
+    ## Argocd group role - ns-aiplatform maintainer
+    p, role:svc-dev-ai, clusters, get, *, allow
+    p, role:svc-dev-ai, repositories, *, *, allow
+    p, role:svc-dev-ai, projects, get, *, allow
+    p, role:svc-dev-ai, gpgkeys, *, *, allow
+    p, role:svc-dev-ai, certificates, *, *, allow
+    p, role:svc-dev-ai, extensions, *, *, allow
+    p, role:svc-dev-ai, logs, *, aiplatform/*, allow
+    p, role:svc-dev-ai, exec, *, aiplatform/*, allow
+    p, role:svc-dev-ai, applications, *, aiplatform/*, allow
+    p, role:svc-dev-ai, applicationsets, *, aiplatform/*, allow
+
+    ## Argocd group role - ns-virtualnw maintainer
+    p, role:svc-dev-virtualnw, clusters, get, *, allow
+    p, role:svc-dev-virtualnw, repositories, *, *, allow
+    p, role:svc-dev-virtualnw, projects, get, *, allow
+    p, role:svc-dev-virtualnw, gpgkeys, *, *, allow
+    p, role:svc-dev-virtualnw, certificates, *, *, allow
+    p, role:svc-dev-virtualnw, extensions, *, *, allow
+    p, role:svc-dev-virtualnw, logs, *, virtualnw/*, allow
+    p, role:svc-dev-virtualnw, exec, *, virtualnw/*, allow
+    p, role:svc-dev-virtualnw, applications, *, virtualnw/*, allow
+    p, role:svc-dev-virtualnw, applicationsets, *, virtualnw/*, allow
+
+    ## Argocd group role - ns-sredev maintainer
+    p, role:svc-dev-sredev, clusters, get, *, allow
+    p, role:svc-dev-sredev, repositories, *, *, allow
+    p, role:svc-dev-sredev, projects, get, *, allow
+    p, role:svc-dev-sredev, gpgkeys, *, *, allow
+    p, role:svc-dev-sredev, certificates, *, *, allow
+    p, role:svc-dev-sredev, extensions, *, *, allow
+    p, role:svc-dev-sredev, logs, *, sredev/*, allow
+    p, role:svc-dev-sredev, exec, *, sredev/*, allow
+    p, role:svc-dev-sredev, applications, *, sredev/*, allow
+    p, role:svc-dev-sredev, applicationsets, *, sredev/*, allow
+

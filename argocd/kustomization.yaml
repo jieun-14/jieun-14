@@ -1,0 +1,36 @@
+# kustomization.yaml
+
+namespace: argocd-upgrade
+
+resources:
+  - argocd-v3.0.12-install.yaml
+  - appproject.yaml
+
+namespace: cicd-tools
+
+patches:
+  - path: argocd-cm-patch.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-cm
+  - path: argocd-rbac-cm-patch.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-rbac-cm
+  - path: argocd-cmd-params-cm-patch.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-cmd-params-cm
+  - path: argocd-ha-deploy-patch.yaml
+    target:
+      kind: Deployment
+      name: argocd-server
+  - path: argocd-ha-deploy-patch.yaml
+    target:
+      kind: Deployment
+      name: argocd-repo-server
+  - path: argocd-ha-deploy-patch.yaml
+    target:
+      kind: StatefulSet
+      name: argocd-application-controller
+
